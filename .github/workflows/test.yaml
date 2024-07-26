@@ -9,7 +9,7 @@ on:
       - main
 
 jobs:
-  build-and-run:
+  test:
     runs-on: ubuntu-latest
 
     steps:
@@ -25,19 +25,6 @@ jobs:
       run: |
         go build -v -o coderunner ./coderunner
 
-    - name: Run Go Application
-      run: |
-        cd coderunner
-        ./coderunner
-
-  test:
-    runs-on: ubuntu-latest
-    needs: build-and-run
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
-
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
@@ -52,6 +39,11 @@ jobs:
       run: |
         cd tests
         poetry install
+
+    - name: Run the coderunner
+      run: |
+        cd coderunner
+        ./coderunner &
 
     - name: Run tests
       run: |
