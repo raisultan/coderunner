@@ -48,7 +48,7 @@ cases = [
         ),
         resp=Response(
             stdout="",
-            stderr="SyntaxError: invalid syntax\n",
+            stderr="  File \"<string>\", line 1\n    print(2 + )\n              ^\nSyntaxError: invalid syntax\n",
         ),
     ),
     # Loop with print
@@ -92,7 +92,7 @@ cases = [
         ),
         resp=Response(
             stdout="",
-            stderr="ZeroDivisionError: division by zero\n",
+            stderr="Traceback (most recent call last):\n  File \"<string>\", line 1, in <module>\nZeroDivisionError: division by zero\n",
         ),
     ),
     # Import and use a module
