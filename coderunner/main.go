@@ -37,7 +37,12 @@ func executeHandler(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
-	json.NewEncoder(w).Encode(resp)
+	err = json.NewEncoder(w).Encode(resp)
+	if err != nil {
+		fmt.Printf("Error while encoding response: %v", err)
+		http.Error(w, "Internal Error", http.StatusInternalServerError)
+		return
+	}
 }
 
 func main() {
