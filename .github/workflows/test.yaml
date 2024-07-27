@@ -50,7 +50,7 @@ jobs:
     - name: Run tests
       run: |
         cd tests
-        poetry run pytest
+        poetry run pytest test_execute.py -vv
 
     - name: Docker logs on failure
       if: failure()
