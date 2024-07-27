@@ -73,7 +73,7 @@ func main() {
 	numCPU := runtime.NumCPU()
 	runtime.GOMAXPROCS(numCPU)
 
-	numWorkers := numCPU * 2
+	numWorkers := numCPU * 5
 	jobs = make(chan Job, numWorkers)
 	results = make(chan Result, numWorkers)
 
