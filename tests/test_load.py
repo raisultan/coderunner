@@ -15,21 +15,21 @@ def send_request(code):
     return response
 
 
-@pytest.mark.parametrize("num_requests", [100, 500, 1000, 2000])
+@pytest.mark.parametrize("num_requests", [100, 500, 1000, 2000, 5000])
 def test_concurrent_requests(num_requests):
-    code = "import time; time.sleep(0.1); print('Done')"
-    
+    code = "import time; time.sleep(0.01); print('Done')"
+
     start_time = time.time()
-    
+
     with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
         futures = [executor.submit(send_request, code) for _ in range(num_requests)]
         responses = [future.result() for future in concurrent.futures.as_completed(futures)]
-    
+
     end_time = time.time()
-    
+
     assert all(response.status_code == 200 for response in responses)
     assert all(response.json()["stdout"].strip() == "Done" for response in responses)
-    
+
     total_time = end_time - start_time
     requests_per_second = num_requests / total_time
     
